@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from './Button';
 
 interface HeroProps {
@@ -32,14 +33,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenReservation }) => {
           Fresh ingredients, masterfully crafted dishes, and unforgettable moments.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up delay-300">
-          <a href="#menu">
+          <Link to="/menu">
             <Button 
               variant="primary" 
               className="flex items-center justify-center gap-2 w-full sm:w-auto"
             >
               View Menu <ArrowRight size={18} />
             </Button>
-          </a>
+          </Link>
           <Button variant="white" onClick={onOpenReservation} className="w-full sm:w-auto">
             Book a Table
           </Button>
