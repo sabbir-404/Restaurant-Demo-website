@@ -27,7 +27,7 @@ export const ContactSection: React.FC = () => {
                   <MapPin className="text-primary mt-1" size={24} />
                   <div>
                     <h4 className="font-semibold mb-1">Location</h4>
-                    <p className="text-gray-400 text-sm">123 Culinary Avenue,<br />Foodie District, NY 10012</p>
+                    <p className="text-gray-400 text-sm">Banani,<br />Dhaka, Bangladesh</p>
                   </div>
                 </div>
                 
@@ -35,7 +35,7 @@ export const ContactSection: React.FC = () => {
                   <Phone className="text-primary mt-1" size={24} />
                   <div>
                     <h4 className="font-semibold mb-1">Phone</h4>
-                    <p className="text-gray-400 text-sm">+1 (555) 123-4567</p>
+                    <p className="text-gray-400 text-sm">+880 123456789</p>
                   </div>
                 </div>
 
