@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, UtensilsCrossed } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import { NavLink } from '../types';
 
 interface NavbarProps {
@@ -7,16 +8,18 @@ interface NavbarProps {
 }
 
 const navLinks: NavLink[] = [
-  { name: 'Home', href: '#home' },
-  { name: 'Menu', href: '#menu' },
-  { name: 'About', href: '#about' },
-  { name: 'Gallery', href: '#gallery' },
-  { name: 'Contact', href: '#contact' },
+  { name: 'Home', href: '/' },
+  { name: 'Menu', href: '/menu' },
+  { name: 'About', href: '/about' },
+  { name: 'Gallery', href: '/gallery' },
+  { name: 'Contact', href: '/contact' },
 ];
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenReservation }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,7 +29,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenReservation }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const showSolidBackground = scrolled;
+  // Show solid background if scrolled OR if not on the home page
+  const showSolidBackground = scrolled || !isHome;
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${showSolidBackground ? 'bg-white/95 backdrop-blur-md shadow-md py-4' : 'bg-transparent py-6'}`}>
@@ -34,28 +38,28 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenReservation }) => {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="flex items-center">
-            <a href="#home" className="flex items-center gap-2 group">
+            <Link to="/" className="flex items-center gap-2 group">
               <div className={`p-2 rounded-full ${showSolidBackground ? 'bg-primary text-white' : 'bg-white text-primary'}`}>
                 <UtensilsCrossed size={24} />
               </div>
               <span className={`font-serif text-2xl font-bold ${showSolidBackground ? 'text-gray-900' : 'text-white'}`}>
                 Lumière
               </span>
-            </a>
+            </Link>
           </div>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.href}
                 className={`text-sm font-medium uppercase tracking-wider hover:text-primary transition-colors ${
                   showSolidBackground ? 'text-gray-700' : 'text-white/90 hover:text-white'
-                }`}
+                } ${location.pathname === link.href ? 'text-primary' : ''}`}
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
             <button 
               onClick={onOpenReservation}
@@ -85,14 +89,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenReservation }) => {
       <div className={`md:hidden absolute top-full left-0 w-full bg-white shadow-lg transition-all duration-300 ease-in-out transform origin-top ${isOpen ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'}`}>
         <div className="px-4 py-6 space-y-4 flex flex-col items-center">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.name}
-              href={link.href}
-              className="text-gray-800 hover:text-primary font-medium text-lg py-2"
+              to={link.href}
+              className={`text-gray-800 hover:text-primary font-medium text-lg py-2 ${location.pathname === link.href ? 'text-primary' : ''}`}
               onClick={() => setIsOpen(false)}
             >
               {link.name}
-            </a>
+            </Link>
           ))}
           <button
             onClick={() => {

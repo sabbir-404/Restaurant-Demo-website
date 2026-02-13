@@ -4,7 +4,7 @@ import { SectionTitle } from './SectionTitle';
 
 export const AboutSection: React.FC = () => {
   return (
-    <section id="about" className="py-20 bg-white">
+    <section className="py-24 bg-white min-h-screen flex items-center">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center gap-16">
           
@@ -13,11 +13,19 @@ export const AboutSection: React.FC = () => {
             <img 
               src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=800&q=80" 
               alt="Chef plating food" 
+              width="400"
+              height="600"
+              loading="lazy"
+              decoding="async"
               className="rounded-2xl shadow-lg mt-8 transform hover:scale-105 transition-transform duration-500"
             />
             <img 
               src="https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&w=800&q=80" 
               alt="Restaurant atmosphere" 
+              width="400"
+              height="600"
+              loading="lazy"
+              decoding="async"
               className="rounded-2xl shadow-lg transform hover:scale-105 transition-transform duration-500"
             />
           </div>
@@ -56,6 +64,9 @@ export const AboutSection: React.FC = () => {
                     key={i}
                     src={`https://i.pravatar.cc/100?img=${i + 10}`}
                     alt="Reviewer"
+                    width="40"
+                    height="40"
+                    loading="lazy"
                     className="w-10 h-10 rounded-full border-2 border-white"
                   />
                 ))}

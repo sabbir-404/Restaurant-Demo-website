@@ -83,7 +83,7 @@ export const MenuSection: React.FC = () => {
     : menuItems.filter(item => item.category === activeCategory);
 
   return (
-    <section id="menu" className="py-20 bg-stone-50">
+    <section className="py-24 bg-stone-50 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle 
           title="Culinary Delights" 
@@ -98,7 +98,7 @@ export const MenuSection: React.FC = () => {
               onClick={() => setActiveCategory(category)}
               className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                 activeCategory === category
-                  ? 'bg-gray-900 text-white shadow-lg'
+                  ? 'bg-gray-900 text-white shadow-lg scale-105'
                   : 'bg-white text-gray-600 hover:bg-gray-200'
               }`}
             >
@@ -118,6 +118,10 @@ export const MenuSection: React.FC = () => {
                 <img 
                   src={item.image} 
                   alt={item.title} 
+                  width="800"
+                  height="600"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-gray-900 shadow-sm">
