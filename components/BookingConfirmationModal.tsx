@@ -1,5 +1,4 @@
 import React from 'react';
-import { createPortal } from 'react-dom';
 import { CheckCircle, Calendar, Users, Phone, X, Edit2 } from 'lucide-react';
 import { Button } from './Button';
 
@@ -25,7 +24,7 @@ export const BookingConfirmationModal: React.FC<BookingConfirmationModalProps> =
 }) => {
   if (!isOpen) return null;
 
-  return createPortal(
+  return (
     <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md relative overflow-hidden transform transition-all scale-100 animate-fade-in-up">
         <div className="absolute top-0 left-0 w-full h-2 bg-green-500"></div>
@@ -91,7 +90,6 @@ export const BookingConfirmationModal: React.FC<BookingConfirmationModalProps> =
           </div>
         </div>
       </div>
-    </div>,
-    document.body
+    </div>
   );
 };
