@@ -27,6 +27,14 @@ export const ReservationForm: React.FC<ReservationFormProps> = ({ className = ''
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
 
+  // Calculate Date Constraints
+  const today = new Date();
+  const todayStr = today.toISOString().split('T')[0];
+  
+  const nextYear = new Date();
+  nextYear.setFullYear(today.getFullYear() + 1);
+  const maxDateStr = nextYear.toISOString().split('T')[0];
+
   const validateField = (name: string, value: string): string | undefined => {
     switch (name) {
       case 'name':
@@ -41,9 +49,13 @@ export const ReservationForm: React.FC<ReservationFormProps> = ({ className = ''
       case 'date':
         if (!value) return 'Date is required';
         const selectedDate = new Date(value);
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        if (selectedDate < today) return 'Date cannot be in the past';
+        const currentDate = new Date();
+        currentDate.setHours(0, 0, 0, 0); // Reset time part for accurate comparison
+        
+        // We compare timestamps to avoid timezone issues causing false positives for "today"
+        if (selectedDate.getTime() < currentDate.getTime()) {
+           return 'Date must be today or in the future';
+        }
         return undefined;
       default:
         return undefined;
@@ -133,8 +145,6 @@ export const ReservationForm: React.FC<ReservationFormProps> = ({ className = ''
     focus:ring-1 outline-none transition-colors
   `;
 
-  const todayStr = new Date().toISOString().split('T')[0];
-
   return (
     <>
       <form className={`space-y-6 ${className}`} onSubmit={handleSubmit} noValidate>
@@ -193,6 +203,7 @@ export const ReservationForm: React.FC<ReservationFormProps> = ({ className = ''
                 onBlur={handleBlur}
                 type="date" 
                 min={todayStr}
+                max={maxDateStr}
                 className={`${getInputClassName(errors.date)} ${!formData.date ? 'text-gray-400' : 'text-gray-900'}`}
               />
                {errors.date && (
@@ -202,6 +213,7 @@ export const ReservationForm: React.FC<ReservationFormProps> = ({ className = ''
               )}
             </div>
             {errors.date && <p className="mt-1 text-sm text-red-500 font-medium animate-fade-in">{errors.date}</p>}
+            <p className="mt-1 text-xs text-gray-400">Bookings available until {new Date(maxDateStr).toLocaleDateString()}</p>
           </div>
           
           <div className="group">
