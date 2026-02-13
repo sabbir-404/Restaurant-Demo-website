@@ -2,7 +2,11 @@ import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Button } from './Button';
 
-export const Hero: React.FC = () => {
+interface HeroProps {
+  onOpenReservation: () => void;
+}
+
+export const Hero: React.FC<HeroProps> = ({ onOpenReservation }) => {
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
@@ -28,10 +32,15 @@ export const Hero: React.FC = () => {
           Fresh ingredients, masterfully crafted dishes, and unforgettable moments.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up delay-300">
-          <Button variant="primary" className="flex items-center justify-center gap-2">
-            View Menu <ArrowRight size={18} />
-          </Button>
-          <Button variant="white" onClick={() => document.getElementById('contact')?.scrollIntoView()}>
+          <a href="#menu">
+            <Button 
+              variant="primary" 
+              className="flex items-center justify-center gap-2 w-full sm:w-auto"
+            >
+              View Menu <ArrowRight size={18} />
+            </Button>
+          </a>
+          <Button variant="white" onClick={onOpenReservation} className="w-full sm:w-auto">
             Book a Table
           </Button>
         </div>

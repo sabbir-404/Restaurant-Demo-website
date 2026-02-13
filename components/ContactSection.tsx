@@ -1,7 +1,7 @@
 import React from 'react';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { SectionTitle } from './SectionTitle';
-import { Button } from './Button';
+import { ReservationForm } from './ReservationForm';
 
 export const ContactSection: React.FC = () => {
   return (
@@ -65,43 +65,7 @@ export const ContactSection: React.FC = () => {
           {/* Reservation Form */}
           <div className="lg:w-7/12 p-10">
             <h3 className="text-2xl font-bold text-gray-900 mb-6">Make a Reservation</h3>
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
-                  <input type="text" className="w-full px-4 py-3 rounded-md bg-gray-50 border border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" placeholder="John Doe" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
-                  <input type="tel" className="w-full px-4 py-3 rounded-md bg-gray-50 border border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" placeholder="(555) 000-0000" />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Date</label>
-                  <input type="date" className="w-full px-4 py-3 rounded-md bg-gray-50 border border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Guests</label>
-                  <select className="w-full px-4 py-3 rounded-md bg-gray-50 border border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors">
-                    <option>2 People</option>
-                    <option>3 People</option>
-                    <option>4 People</option>
-                    <option>5+ People</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Special Requests</label>
-                <textarea rows={4} className="w-full px-4 py-3 rounded-md bg-gray-50 border border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" placeholder="Allergies, special occasion, etc."></textarea>
-              </div>
-
-              <Button type="submit" className="w-full md:w-auto">
-                Confirm Reservation
-              </Button>
-            </form>
+            <ReservationForm />
           </div>
 
         </div>

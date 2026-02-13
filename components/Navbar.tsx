@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, UtensilsCrossed } from 'lucide-react';
 import { NavLink } from '../types';
 
+interface NavbarProps {
+  onOpenReservation: () => void;
+}
+
 const navLinks: NavLink[] = [
   { name: 'Home', href: '#home' },
   { name: 'Menu', href: '#menu' },
@@ -10,7 +14,7 @@ const navLinks: NavLink[] = [
   { name: 'Contact', href: '#contact' },
 ];
 
-export const Navbar: React.FC = () => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenReservation }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -22,17 +26,19 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const showSolidBackground = scrolled;
+
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-md py-4' : 'bg-transparent py-6'}`}>
+    <nav className={`fixed w-full z-50 transition-all duration-300 ${showSolidBackground ? 'bg-white/95 backdrop-blur-md shadow-md py-4' : 'bg-transparent py-6'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="flex items-center">
             <a href="#home" className="flex items-center gap-2 group">
-              <div className={`p-2 rounded-full ${scrolled ? 'bg-primary text-white' : 'bg-white text-primary'}`}>
+              <div className={`p-2 rounded-full ${showSolidBackground ? 'bg-primary text-white' : 'bg-white text-primary'}`}>
                 <UtensilsCrossed size={24} />
               </div>
-              <span className={`font-serif text-2xl font-bold ${scrolled ? 'text-gray-900' : 'text-white'}`}>
+              <span className={`font-serif text-2xl font-bold ${showSolidBackground ? 'text-gray-900' : 'text-white'}`}>
                 Lumière
               </span>
             </a>
@@ -45,29 +51,29 @@ export const Navbar: React.FC = () => {
                 key={link.name}
                 href={link.href}
                 className={`text-sm font-medium uppercase tracking-wider hover:text-primary transition-colors ${
-                  scrolled ? 'text-gray-700' : 'text-white/90 hover:text-white'
+                  showSolidBackground ? 'text-gray-700' : 'text-white/90 hover:text-white'
                 }`}
               >
                 {link.name}
               </a>
             ))}
-            <a 
-              href="#contact"
+            <button 
+              onClick={onOpenReservation}
               className={`px-5 py-2 rounded-md font-medium transition-colors ${
-                scrolled 
+                showSolidBackground 
                   ? 'bg-primary text-white hover:bg-amber-700' 
                   : 'bg-white text-gray-900 hover:bg-gray-100'
               }`}
             >
               Book Table
-            </a>
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className={`p-2 rounded-md ${scrolled ? 'text-gray-900' : 'text-white'}`}
+              className={`p-2 rounded-md ${showSolidBackground ? 'text-gray-900' : 'text-white'}`}
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -88,13 +94,15 @@ export const Navbar: React.FC = () => {
               {link.name}
             </a>
           ))}
-          <a
-            href="#contact"
+          <button
+            onClick={() => {
+              setIsOpen(false);
+              onOpenReservation();
+            }}
             className="w-full text-center bg-primary text-white py-3 rounded-md font-medium hover:bg-amber-700"
-            onClick={() => setIsOpen(false)}
           >
             Book a Table
-          </a>
+          </button>
         </div>
       </div>
     </nav>
