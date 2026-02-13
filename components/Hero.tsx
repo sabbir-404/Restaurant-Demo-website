@@ -1,6 +1,5 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { Button } from './Button';
 
 interface HeroProps {
@@ -8,8 +7,15 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenReservation }) => {
+  const scrollToMenu = () => {
+    const menuSection = document.getElementById('menu');
+    if (menuSection) {
+      menuSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img 
@@ -35,21 +41,20 @@ export const Hero: React.FC<HeroProps> = ({ onOpenReservation }) => {
           Fresh ingredients, masterfully crafted dishes, and unforgettable moments.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up delay-300">
-          <Link to="/menu">
-            <Button 
-              variant="primary" 
-              className="flex items-center justify-center gap-2 w-full sm:w-auto"
-            >
-              View Menu <ArrowRight size={18} />
-            </Button>
-          </Link>
+          <Button 
+            variant="primary" 
+            className="flex items-center justify-center gap-2 w-full sm:w-auto"
+            onClick={scrollToMenu}
+          >
+            View Menu <ArrowRight size={18} />
+          </Button>
           <Button variant="white" onClick={onOpenReservation} className="w-full sm:w-auto">
             Book a Table
           </Button>
         </div>
       </div>
       
-      {/* Scroll Indicator - Only visible on Home route, handled by visual check since we are on Home */}
+      {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce hidden md:block text-white/70">
         <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-white to-transparent mx-auto mb-2"></div>
         <span className="text-xs uppercase tracking-widest">Scroll</span>

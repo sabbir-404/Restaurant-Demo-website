@@ -4,7 +4,7 @@ import { SectionTitle } from './SectionTitle';
 
 export const AboutSection: React.FC = () => {
   return (
-    <section className="py-24 bg-white min-h-screen flex items-center">
+    <section id="about" className="py-24 bg-white min-h-screen flex items-center">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center gap-16">
           
